@@ -1,47 +1,88 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Logo from '../../assets/Logo';
 import Search from '../../assets/Search';
 import Location from '../../assets/Location';
-
 import SelectCity from '../SelectCity';
 import InputSearch from '../InputSearch';
 
+import { City } from '../../types/index';
+import cities, { RioDeJaneiro } from '../../data/cities';
+
+import { loadFilmsRequest } from '../../store/modules/films/actions';
+
 import { Container, Content, Nav, Text } from './styles';
 
-import { City } from '../../types/index';
-import cities from '../../data/cities';
+const INTIAL_CITY = RioDeJaneiro;
 
-const SAO_PAULO = 1;
+const Header: React.FC = () => {
+  const [showFilter, setShowFilter] = useState(false);
+  const [showCity, setShowCity] = useState(false);
 
-export default function Header() {
-  const [showSelectCity, setShowSelectCity] = useState(false);
-  const [showInputSearch, setShowInputSearch] = useState(false);
-  const [cityCode, setCityCode] = useState(SAO_PAULO);
+  const refFilter = useRef<HTMLDivElement>(null);
+  const refCities = useRef<HTMLDivElement>(null);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadFilmsRequest(INTIAL_CITY.code));
+  }, []);
+
+  useEffect(() => {
+    function handle(ref: HTMLDivElement, event: MouseEvent) {
+      return ref && event.target instanceof Node && !ref.contains(event.target);
+    }
+
+    function handleFilter(event: MouseEvent) {
+      if (refFilter.current && handle(refFilter.current, event)) {
+        setShowFilter(false);
+      }
+    }
+
+    function handleCities(event: MouseEvent) {
+      if (refCities.current && handle(refCities.current, event)) {
+        setShowCity(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleFilter);
+    document.addEventListener('mousedown', handleCities);
+
+    return () => {
+      document.removeEventListener('mousedown', handleFilter);
+      document.removeEventListener('mousedown', handleCities);
+    };
+  }, []);
+
+  const [city, setCity] = useState<City>(INTIAL_CITY);
 
   return (
     <Container>
       <Content>
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         <Nav>
-          <div>
-            <a href="/#" onClick={() => setShowInputSearch(!showInputSearch)}>
+          <div ref={refFilter}>
+            <a href="/#" onClick={() => setShowFilter(!showFilter)}>
               <Search />
               <Text id="search">Busca</Text>
             </a>
-            {showInputSearch && <InputSearch className="teste" />}
+            {showFilter && <InputSearch className="input-search" />}
           </div>
-          <div>
-            <a href="/#" onClick={() => setShowSelectCity(!showSelectCity)}>
+          <div ref={refCities}>
+            <a href="/#" onClick={() => setShowCity(!showCity)}>
               <Location />
-              <Text id="location">São Paulo</Text>
+              <Text id="location">{city.name}</Text>
             </a>
-            {showSelectCity && (
+            {showCity && (
               <SelectCity
-                className="teste"
-                cityCode={cityCode}
+                className="select-city"
+                city={city}
                 cities={cities}
-                setCityCode={setCityCode}
+                setCity={setCity}
               />
             )}
           </div>
@@ -49,4 +90,6 @@ export default function Header() {
       </Content>
     </Container>
   );
-}
+};
+
+export default Header;

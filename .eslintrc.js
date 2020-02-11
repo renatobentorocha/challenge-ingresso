@@ -39,6 +39,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     'import/prefer-default-export': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
+    'react/prop-types': 'off',
     'react/jsx-filename-extension': [
       1,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },

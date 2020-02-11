@@ -8,6 +8,7 @@ export const Container = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
+  z-index: 99;
 `;
 
 export const FormWrapper = styled.div`

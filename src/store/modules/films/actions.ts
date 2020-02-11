@@ -2,7 +2,7 @@ import {
   FilmsActionsTypes,
   LOAD_FILMS_REQUEST,
   LOAD_FILMS_SUCCESS,
-  IMovie,
+  IEvent,
 } from './types';
 
 export function loadFilmsRequest(cityCode: number): FilmsActionsTypes {
@@ -12,9 +12,9 @@ export function loadFilmsRequest(cityCode: number): FilmsActionsTypes {
   };
 }
 
-export function loadFilmsSuccess(movies: IMovie[]): FilmsActionsTypes {
+export function loadFilmsSuccess(events: IEvent[]): FilmsActionsTypes {
   return {
     type: LOAD_FILMS_SUCCESS,
-    payload: { movies },
+    payload: { events },
   };
 }

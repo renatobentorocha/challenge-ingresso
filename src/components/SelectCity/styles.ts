@@ -33,10 +33,25 @@ export const Form = styled.form`
 
     font-size: 1.125rem;
     color: #fff;
+
+    > span {
+      padding-left: 5px;
+    }
   }
 
   > div {
+    > span {
+      display: inline-block;
+      padding: 5px;
+      margin-top: 5px;
+      font-size: 0.813rem;
+      color: #f30;
+      border: 1px solid #f30;
+      line-height: normal;
+    }
+
     button {
+      min-width: 169px;
       border-radius: 4px;
       text-transform: uppercase;
       font-size: 1rem;
@@ -56,6 +71,8 @@ export const Form = styled.form`
       user-select: none;
       border: 1px solid transparent;
       padding: 0.563rem 1.062rem;
+
+      margin-top: 1.062rem;
     }
 
     > span {
@@ -97,6 +114,7 @@ export const SelectWrapper = styled.div`
 `;
 
 export const Select = styled.select`
+  margin-bottom: 1.062rem;
   width: 100%;
 
   padding: 0.15rem 0.75rem;

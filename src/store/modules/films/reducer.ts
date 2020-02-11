@@ -6,7 +6,7 @@ import {
 } from './types';
 
 const initialState: FilmsState = {
-  event: [],
+  events: [],
   loading: false,
 };
 
@@ -19,7 +19,7 @@ export default function todoReducer(
       return { ...state, loading: true };
 
     case LOAD_FILMS_SUCCESS:
-      return { event: action.payload.movies, loading: false };
+      return { events: action.payload.events, loading: false };
 
     default:
       return state;

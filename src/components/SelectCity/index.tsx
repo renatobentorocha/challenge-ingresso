@@ -1,6 +1,11 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { loadFilmsRequest } from '../../store/modules/films/actions';
+import { RootState } from '../../store/modules/combineReducers';
+
+import { City } from '../../types/index';
+import Loading from '../Loading';
 
 import {
   Container,
@@ -11,39 +16,45 @@ import {
   TriangleUp,
 } from './styles';
 
-import { City } from '../../types/index';
-
 interface Props {
   className: string;
-  cityCode: number;
+  city: City;
   cities: City[];
-  setCityCode: React.Dispatch<React.SetStateAction<number>>;
+  setCity: React.Dispatch<React.SetStateAction<City>>;
 }
 
-const SelectCity: React.FC<Props> = ({
-  className,
-  cityCode,
-  cities,
-  setCityCode,
-}) => {
+const SelectCity: React.FC<Props> = ({ className, city, cities, setCity }) => {
   const dispatch = useDispatch();
 
-  const handleSelect = (e: React.MouseEvent<HTMLSelectElement, MouseEvent>) => {
-    e.stopPropagation();
-  };
+  const [error, setError] = useState(false);
+  const [selectedCity, setSelectedCity] = useState<City>(city);
+
+  const loading = useSelector((state: RootState) => state.films.loading);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
-    e.stopPropagation();
 
-    setCityCode(Number(e.target.value));
+    const option = e.target.options[e.target.selectedIndex];
+
+    const code = Number(option.value);
+
+    if (code) setError(false);
+
+    setSelectedCity({
+      code,
+      name: option.label,
+    });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(cityCode);
-    dispatch(loadFilmsRequest(cityCode));
+    if (city.code) {
+      dispatch(loadFilmsRequest(city.code));
+      setCity(selectedCity);
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -53,30 +64,28 @@ const SelectCity: React.FC<Props> = ({
         <Form onSubmit={handleSubmit}>
           <strong className="title">
             Você está em:
-            <span> São Paulo</span>
+            <span>{selectedCity.name}</span>
           </strong>
-
           <div>
             <SelectWrapper>
               <Select
-                onClick={handleSelect}
                 onChange={e => handleSelectChange(e)}
                 id="state"
                 name="state"
                 min-length="1"
-                value={cityCode}
+                value={selectedCity.code}
               >
-                <option value="">Estado</option>
+                <option value={0}>Estado</option>
                 {cities.map(c => (
-                  <option key={`${c.code}`} value={c.code}>
-                    {c.name}
-                  </option>
+                  <option key={`${c.code}`} value={c.code} label={c.name} />
                 ))}
               </Select>
             </SelectWrapper>
-            <span className="">Por favor, selecione um estado.</span>
+            {error && <span>Por favor, selecione um estado.</span>}
 
-            <button type="submit">TROCAR CIDADE</button>
+            <button type="submit">
+              {loading ? <Loading /> : 'TROCAR CIDADE'}
+            </button>
           </div>
         </Form>
       </FormWrapper>

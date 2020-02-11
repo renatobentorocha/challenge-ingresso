@@ -1,107 +1,72 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import InputCheckBox from '../../components/InputCheckBox';
+import TLoading from '../../components/Loading';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  padding: 10px;
+  padding-top: 54px;
+  height: 100%;
+`;
 
-export const Header = styled.header`
-  background-color: #ef7460;
-  padding: 30px 40px;
-  color: white;
-  text-align: center;
+export const SectionFilterFilms = styled.section``;
 
-  > div {
-    display: flex;
-    align-items: center;
+export const Title = styled.h1`
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.1;
+  padding: 12px 0;
+  text-transform: uppercase;
+`;
 
-    > input {
-      outline: none;
-      margin: 0;
-      border: none;
-      border-radius: 0;
-      width: 75%;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 3px;
-    }
+export const TitleFilter = styled(Title)``;
 
-    > a {
-      text-decoration: none;
-      border: 0;
-      padding: 10px;
-      width: 23%;
-      background: #d9d9d9;
-      color: #555;
-      text-align: center;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-      border-radius: 0;
-      margin-left: 2%;
-      border-radius: 3px;
-    }
+export const FilterOptions = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-row-gap: 12px;
+`;
 
-    > a:hover {
-      background-color: #bbb;
-    }
+export const CheckBox = styled(InputCheckBox)``;
+
+export const TitleInTheaters = styled(Title)`
+  position: relative;
+  color: #ff7300;
+
+  font-weight: bold;
+
+  border-bottom: 1px solid #5f5f5f;
+
+  &::after {
+    content: '';
+    border-bottom: 1px solid #ff7300;
+    width: 88px;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
   }
 `;
 
-export const List = styled.ul`
-  margin: 0;
-  padding: 0;
-
-  > li {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    padding: 12px 8px 12px 40px;
-    background: #eee;
-    font-size: 18px;
-    transition: 0.2s;
-    list-style: none;
-    user-select: none;
-  }
-
-  > li:nth-child(odd) {
-    background: #f9f9f9;
-  }
-
-  > li:hover {
-    background: #ddd;
-  }
+export const FilmsWrapper = styled.div`
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-row-gap: 12px;
 `;
 
-type Props = {
-  checked?: boolean;
-};
-
-export const Item = styled.li<Props>`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  ${props =>
-    props.checked &&
-    css`
-      span {
-        text-decoration: line-through;
-      }
-    `}
-
-  .close {
-    border: 0;
-    margin: 0;
-    padding: 15px;
-    border-radius: 3px;
-  }
-
-  .close:hover {
-    background-color: #f44336;
-    color: white;
-  }
+export const Article = styled.article`
+  margin: 0 auto;
 `;
 
-export const Check = styled.img`
-  height: 15px;
-  margin-right: 20px;
+export const Image = styled.img`
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  -o-transition: -o-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease,
+    -o-transform 0.5s ease;
+
+  width: 240px;
 `;
+
+export const Loading = styled(TLoading).attrs({})``;

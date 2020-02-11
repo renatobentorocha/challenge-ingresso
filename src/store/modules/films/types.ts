@@ -19,8 +19,12 @@ export interface IMovie {
   trailers: ITrailer[];
 }
 
+export interface IEvent {
+  event: IMovie;
+}
+
 export interface FilmsState {
-  event: IMovie[];
+  events: IEvent[];
   loading: boolean;
 }
 
@@ -35,7 +39,7 @@ export const LOAD_FILMS_SUCCESS = '@films/LOAD_FILMS_SUCCESS';
 
 export interface LoadFilmsSuccess {
   type: typeof LOAD_FILMS_SUCCESS;
-  payload: { movies: IMovie[] };
+  payload: { events: IEvent[] };
 }
 
 export type FilmsActionsTypes = LoadFilmsRequest | LoadFilmsSuccess;

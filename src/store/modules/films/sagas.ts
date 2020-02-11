@@ -9,12 +9,8 @@ export function* loadFilms(action: LoadFilmsRequest) {
   try {
     const { cityCode } = action.payload;
 
-    const response = yield call(
-      api.get,
-      `/highlights/${cityCode}/partnership/home`
-    );
+    const response = yield call(api.get, `/city/${cityCode}/event`);
 
-    console.log(response.data);
     yield put(loadFilmsSuccess(response.data));
   } catch (err) {
     console.log(err);

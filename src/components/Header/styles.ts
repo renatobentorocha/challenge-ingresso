@@ -6,9 +6,11 @@ export const Container = styled.header`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 `;
 
 export const Content = styled.div`
+  width: 100%;
   padding: 10px;
   height: 54px;
   position: relative;
