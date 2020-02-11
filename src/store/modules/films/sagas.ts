@@ -11,7 +11,7 @@ export function* loadFilms(action: LoadFilmsRequest) {
 
     const response = yield call(api.get, `/city/${cityCode}/event`);
 
-    yield put(loadFilmsSuccess(response.data));
+    yield put(loadFilmsSuccess(response.data, cityCode));
   } catch (err) {
     console.log(err);
   }

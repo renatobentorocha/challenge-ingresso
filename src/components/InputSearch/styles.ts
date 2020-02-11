@@ -9,6 +9,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 99;
+
+  @media screen and (max-width: 527px) {
+    right: 0;
+    min-width: 290px;
+  }
 `;
 
 export const FormWrapper = styled.div`

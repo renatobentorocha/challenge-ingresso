@@ -47,4 +47,8 @@ export const Text = styled.span`
   color: #fff;
   text-align: right;
   cursor: pointer;
+
+  @media screen and (max-width: 496px) {
+    display: none;
+  }
 `;

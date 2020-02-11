@@ -49,8 +49,8 @@ const SelectCity: React.FC<Props> = ({ className, city, cities, setCity }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (city.code) {
-      dispatch(loadFilmsRequest(city.code));
+    if (selectedCity.code) {
+      dispatch(loadFilmsRequest(selectedCity.code));
       setCity(selectedCity);
     } else {
       setError(true);

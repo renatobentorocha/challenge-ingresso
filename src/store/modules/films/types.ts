@@ -24,6 +24,7 @@ export interface IEvent {
 }
 
 export interface FilmsState {
+  cityCode: number;
   events: IEvent[];
   loading: boolean;
 }
@@ -39,7 +40,7 @@ export const LOAD_FILMS_SUCCESS = '@films/LOAD_FILMS_SUCCESS';
 
 export interface LoadFilmsSuccess {
   type: typeof LOAD_FILMS_SUCCESS;
-  payload: { events: IEvent[] };
+  payload: { events: IEvent[]; cityCode: number };
 }
 
 export type FilmsActionsTypes = LoadFilmsRequest | LoadFilmsSuccess;

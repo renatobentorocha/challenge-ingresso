@@ -9,12 +9,16 @@ interface RouteProps {
   movie: IMovie;
 }
 
-export default function Film(props: RouteComponentProps<{}, {}, RouteProps>) {
+const Film: React.FC<RouteComponentProps<{}, {}, RouteProps>> = ({
+  location: {
+    state: { movie: movieProps },
+  },
+}) => {
   const [movie, setMovie] = useState<IMovie | null>(null);
 
   useEffect(() => {
-    setMovie(props.location.state.movie);
-  }, []);
+    setMovie(movieProps);
+  }, [movieProps]);
 
   return (
     <Container imageUrl={movie?.images[1].url}>
@@ -62,4 +66,6 @@ export default function Film(props: RouteComponentProps<{}, {}, RouteProps>) {
       </Header>
     </Container>
   );
-}
+};
+
+export default Film;

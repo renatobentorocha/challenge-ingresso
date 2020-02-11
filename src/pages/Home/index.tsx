@@ -49,7 +49,7 @@ export default function Home() {
             height: '100%',
           }}
         >
-          <Loading size={100} />
+          <Loading size={100} style={{ color: '#09f' }} />
         </div>
       ) : (
         <section>

@@ -4,7 +4,7 @@ import { OptionsType, ValueType, ActionMeta } from 'react-select';
 import history from '../../Routes/history';
 
 import { RootState } from '../../store/modules/combineReducers';
-import { IEvent, IMovie } from '../../store/modules/films/types';
+import { IEvent } from '../../store/modules/films/types';
 
 import Search from '../../assets/Search';
 
@@ -19,16 +19,8 @@ import {
   TriangleUp,
 } from './styles';
 
-interface Props {
-  className: string;
-}
-
-const InputSearch: React.FC<Props> = ({ className, ...rest }) => {
+const InputSearch: React.FC = () => {
   const events = useSelector((state: RootState) => state.films.events);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
 
   const filterFilms = (inputValue = '') => {
     return events.filter(
@@ -55,7 +47,7 @@ const InputSearch: React.FC<Props> = ({ className, ...rest }) => {
     <Container id="container">
       <FormWrapper>
         <TriangleUp />
-        <Form onSubmit={handleSubmit}>
+        <Form>
           <h2 className="title">O que você procura?</h2>
 
           <SelectWrapper>

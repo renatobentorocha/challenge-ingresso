@@ -28,7 +28,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     dispatch(loadFilmsRequest(INTIAL_CITY.code));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     function handle(ref: HTMLDivElement, event: MouseEvent) {
@@ -58,6 +58,22 @@ const Header: React.FC = () => {
 
   const [city, setCity] = useState<City>(INTIAL_CITY);
 
+  const handleShowSearch = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+
+    setShowFilter(!showFilter);
+  };
+
+  const handleShowSelectCity = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+
+    setShowCity(!showCity);
+  };
+
   return (
     <Container>
       <Content>
@@ -66,14 +82,14 @@ const Header: React.FC = () => {
         </Link>
         <Nav>
           <div ref={refFilter}>
-            <a href="/#" onClick={() => setShowFilter(!showFilter)}>
+            <a href="/#" onClick={handleShowSearch}>
               <Search />
               <Text id="search">Busca</Text>
             </a>
-            {showFilter && <InputSearch className="input-search" />}
+            {showFilter && <InputSearch />}
           </div>
           <div ref={refCities}>
-            <a href="/#" onClick={() => setShowCity(!showCity)}>
+            <a href="/#" onClick={handleShowSelectCity}>
               <Location />
               <Text id="location">{city.name}</Text>
             </a>
