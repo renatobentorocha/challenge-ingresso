@@ -13,3 +13,5 @@ Após baixar a aplicação, acessar a raíz do projeto: instalar as depenências
 Criou-se um teste para validar a busca de filmes da API: na raíz do projeto, ao executar: ```yarn test```.
 
 **OBS.:** no primeiro acesso a busca inicial pode ser um pouco lenta, pois está uitlizando uma API hospedada no Heroku para apontar para a API da [**ingresso.com**](https://www.ingresso.com).
+
+Veja a aplicação em: https://codesandbox.io/s/ingressocom-f83xh
